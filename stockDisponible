@@ -1,0 +1,63 @@
+IF (object_type = '17' and (transaction_type ='A' OR transaction_type ='U'))--0
+THEN
+
+DECLARE VALRDR INT;
+DECLARE DISOR INT;
+
+SELECT COUNT(T0."DocEntry") INTO VALRDR
+FROM RDR1 T0
+INNER JOIN OITW T1 ON T1."ItemCode" = T0."ItemCode" AND T1."WhsCode" = T0."WhsCode"
+WHERE T0."DocEntry" = list_of_cols_val_tab_del AND (T1."OnHand"-T1."IsCommited"+T1."OnOrder"+T0."Quantity") < T0."Quantity" AND (T0."U_VTAEXT" = 'NO' AND T0."U_VTATRA"='NO');
+
+		IF :VALRDR > 0 THEN --1
+			error:='100';	
+			error_message:='La cantidad reservada sobrepasa el disponible.';
+		ELSE
+	    
+			SELECT COUNT(T0."DocEntry") INTO VALRDR
+			FROM RDR1 T0
+			INNER JOIN OITW T1 ON T1."ItemCode" = T0."ItemCode" AND T1."WhsCode" = T0."WhsCode"
+			INNER JOIN (SELECT "ItemCode", ("OnHand"-"IsCommited"+"OnOrder") AS "DispOR" FROM OITW WHERE "WhsCode" = 'DIS-OR') 
+							T2 ON T2."ItemCode" = T0."ItemCode"
+							
+			WHERE T0."DocEntry" = list_of_cols_val_tab_del AND (T1."OnHand"-T1."IsCommited"+T1."OnOrder"+T0."Quantity"+T2."DispOR") < T0."Quantity" AND 
+					(T0."U_VTAEXT" = 'SI' AND T0."U_VTATRA"='NO');
+					
+				IF :VALRDR > 0 THEN --2
+					error:='101';	
+					error_message:='La cantidad en almacen DIS-OR no abastece el requerimiento.';
+				ELSE
+					
+					SELECT COUNT(T0."DocEntry") INTO VALRDR
+					FROM RDR1 T0
+					INNER JOIN OITW T1 ON T1."ItemCode" = T0."ItemCode" AND T1."WhsCode" = T0."WhsCode"
+					INNER JOIN (SELECT "ItemCode", ("OnHand"-"IsCommited"+"OnOrder") AS "DispTRA" FROM OITW WHERE "WhsCode" = 'DIS-TRA') 
+									T2 ON T2."ItemCode" = T0."ItemCode"
+									
+					WHERE T0."DocEntry" = list_of_cols_val_tab_del AND (T1."OnHand"-T1."IsCommited"+T1."OnOrder"+T0."Quantity"+T2."DispTRA") < T0."Quantity" AND 
+							(T0."U_VTAEXT" = 'NO' AND T0."U_VTATRA"='SI');
+							
+						IF :VALRDR > 0 THEN --3
+							error:='102';	
+							error_message:='La cantidad en almacen DIS-TRA no abastece el requerimiento.';
+						ELSE
+					
+							SELECT COUNT(T0."DocEntry") INTO VALRDR
+							FROM RDR1 T0
+							INNER JOIN OITW T1 ON T1."ItemCode" = T0."ItemCode" AND T1."WhsCode" = T0."WhsCode"
+							INNER JOIN (SELECT "ItemCode", ("OnHand"-"IsCommited"+"OnOrder") AS "DispTRA" FROM OITW WHERE "WhsCode" = 'DIS-TRA') 
+											T2 ON T2."ItemCode" = T0."ItemCode"
+							INNER JOIN (SELECT "ItemCode", ("OnHand"-"IsCommited"+"OnOrder") AS "DispOR" FROM OITW WHERE "WhsCode" = 'DIS-OR') 
+											T3 ON T3."ItemCode" = T0."ItemCode"							
+											
+							WHERE T0."DocEntry" = list_of_cols_val_tab_del AND (T1."OnHand"-T1."IsCommited"+T1."OnOrder"+T0."Quantity"+T3."DispOR"+T2."DispTRA") < T0."Quantity" AND 
+									(T0."U_VTAEXT" = 'SI' AND T0."U_VTATRA"='SI');
+									
+								IF :VALRDR > 0 THEN --4
+									error:='103';	
+									error_message:='La cantidad en almacen DIS-OR + DIS-TRA no abastece el requerimiento.';
+								END IF;--4
+						END IF;--3
+				END IF;--2
+		END IF;--1
+END IF;--0

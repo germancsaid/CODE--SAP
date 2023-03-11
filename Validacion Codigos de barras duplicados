@@ -1,0 +1,39 @@
+SET SCHEMA "BD_GRUPO_FP";
+ALTER PROCEDURE ACB_TN_OITM (in id nvarchar(255), in transtype varchar(1), out error int, out errormsg nvarchar(200))
+AS
+BEGIN
+-- GTP: VALIDACIONES DATOS MAESTROS DE ARTICULOS
+
+
+    IF (transtype='A' or transtype='U') --1
+    THEN --1
+       
+        DECLARE NUM INT:=0;
+    
+        SELECT COUNT(T0."ItemCode") INTO NUM
+        FROM OITM T0
+        WHERE T0."ItemCode" = id AND T0."CodeBars" IS NULL;
+        
+        IF :NUM > 0 
+        THEN --2
+            error :='001';    
+            errormsg := 'Agregue dato en el campo Código de barras';
+            NUM:=0;
+        ELSE
+        
+	        SELECT COUNT(T0."ItemCode") INTO NUM
+	        FROM OITM T0
+	        WHERE T0."ItemCode" = id AND T0."CodeBars" <> '0' AND T0."CodeBars" = (SELECT T0."CodeBars" FROM OITM T0 WHERE T0."CodeBars" = id AND T0."CodeBars" <> '0');
+	        
+	        IF :NUM > 0 
+	        THEN --3
+
+	        	error :='002';    
+	            errormsg := 'El Código de barras ya existe en el sistema';
+	            NUM:=0;
+	        END IF;--3       	
+
+        END IF;--2
+
+    END IF;--1  
+END;

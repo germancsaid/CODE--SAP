@@ -1,0 +1,5 @@
+SELECT CAST(T0."NumAtCard" AS INT) AS "Fact Duplicadas" 
+FROM OINV T0 WHERE T0."Series" = '[%0]' 
+GROUP BY CAST(T0."NumAtCard" AS INT)
+HAVING COUNT(*)>1 
+ORDER BY CAST(T0."NumAtCard" AS INT) ASC
