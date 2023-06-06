@@ -1,0 +1,22 @@
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: C:\inetpub\wwwroot\Ganaseguros
+(-5002): You are not allowed to edit posting date by row 
+(-5002): Cannot perform transaction in controlling type account  [JDT1.Account][line: 2] , '509022934201'
+(-5002): Cannot perform transaction in controlling type account  [JDT1.Account][line: 3] , '521041010101'
+(-5002): Cannot perform transaction in controlling type account  [JDT1.Account][line: 4] , '521031010101'
+(-5002): Cannot perform transaction in controlling type account  [JDT1.Account][line: 5] , '521031010101'
+(-5002): Cannot perform transaction in controlling type account  [JDT1.Account][line: 6] , '401012934201'
+(-5002): Cannot perform transaction in controlling type account  [JDT1.Account][line: 7] , '401042934201'
+(-5002): Cannot perform transaction in controlling type account  [JDT1.Account][line: 8] , '203062010201'
+(-5002): Cannot perform transaction in controlling type account  [JDT1.Account][line: 9] , '203071010101'
+(-5002): Cannot perform transaction in controlling type account  [JDT1.Account][line: 10] , '203071010102'
+(-5002): Cannot perform transaction in controlling type account  [JDT1.Account][line: 11] , '203081010101'
+(-5002): Cannot perform transaction in controlling type account  [JDT1.Account][line: 12] , '202132029342'
+(-5011):  [JDT1.Account][line: 13] , 'Invalid Account Code'
+(-5011):  [JDT1.Account][line: 14] , 'Invalid Account Code'
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...

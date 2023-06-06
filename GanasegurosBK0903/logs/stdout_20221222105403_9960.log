@@ -1,0 +1,11 @@
+ACE_Mutex::ACE_Mutex: Input/output error
+ACE_Mutex::ACE_Mutex: Input/output error
+ACE_Mutex::ACE_Mutex: Input/output error
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: C:\inetpub\wwwroot\Ganaseguros
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...

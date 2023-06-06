@@ -1,4 +1,4 @@
-ALTER FUNCTION "F_BALANCE_VERTICAL" (FECHAINI DATE, FECHAFIN DATE)
+CREATE FUNCTION "F_BALANCE_VERTICAL" (FECHAINI DATE, FECHAFIN DATE)
 --Select * from "F_BALANCE_VERTICAL" ('20230101', '20230228') 
 --1,2,3,6,7
 RETURNS TABLE 
@@ -642,7 +642,7 @@ RETURN
 			(CASE LEFT (T2."FormatCode",1) WHEN '2' THEN 2
 			WHEN '3' THEN 3
 			ELSE 0 END )"ordenG",	
-			LEFT(T2."FormatCode",9)		"Codigo_de_cuenta",
+			LEFT(T2."FormatCode",8)		"Codigo_de_cuenta",
 			T7."AcctName"		"Nombre de cuenta", 
 			T1."TransId"			"Documento",
 			T0."TransType"		"tipo documento",
@@ -671,7 +671,7 @@ RETURN
 			1 "orden",	
 			(CASE LEFT (T2."FormatCode",1) WHEN '1' THEN 1
 			ELSE 0 END )"ordenG",	
-			LEFT(T2."FormatCode",9)		"Codigo_de_cuenta",
+			LEFT(T2."FormatCode",8)		"Codigo_de_cuenta",
 			T7."AcctName"		"Nombre de cuenta", 
 			T1."TransId"			"Documento",
 			T0."TransType"		"tipo documento",
@@ -703,7 +703,7 @@ RETURN
 			(CASE LEFT (T2."FormatCode",1) WHEN '1' THEN 1
 			WHEN '6' THEN 6
 			ELSE 0 END )"ordenG",	
-			LEFT(T2."FormatCode",9)		"Codigo_de_cuenta",
+			LEFT(T2."FormatCode",8)		"Codigo_de_cuenta",
 			T7."AcctName"		"Nombre de cuenta", 
 			T1."TransId"			"Documento",
 			T0."TransType"		"tipo documento",
@@ -735,7 +735,7 @@ RETURN
 			(CASE LEFT (T2."FormatCode",1) WHEN '1' THEN 1
 			WHEN '7' THEN 7
 			ELSE 0 END )"ordenG",	
-			LEFT(T2."FormatCode",9)		"Codigo_de_cuenta",
+			LEFT(T2."FormatCode",8)		"Codigo_de_cuenta",
 			T7."AcctName"		"Nombre de cuenta", 
 			T1."TransId"			"Documento",
 			T0."TransType"		"tipo documento",
@@ -769,8 +769,8 @@ RETURN
 			(CASE LEFT (T2."FormatCode",1) WHEN '2' THEN 2
 			WHEN '3' THEN 3
 			WHEN '7' THEN 5
-			ELSE 0 END )"ordenG",	
-			LEFT(T2."FormatCode",11)		"Codigo_de_cuenta",
+			ELSE 0 END ) "ordenG",	
+			LEFT(T2."FormatCode",10)		"Codigo_de_cuenta",
 			T6."AcctName"		"Nombre de cuenta", 
 			T1."TransId"			"Documento",
 			T0."TransType"		"tipo documento",
@@ -801,7 +801,7 @@ RETURN
 			WHEN '6' THEN 4
 			--WHEN '8' THEN 4 
 			ELSE 0 END )"ordenG",	
-			LEFT(T2."FormatCode",11)		"Codigo_de_cuenta",
+			LEFT(T2."FormatCode",10)		"Codigo_de_cuenta",
 			T6."AcctName"		"Nombre de cuenta", 
 			T1."TransId"			"Documento",
 			T0."TransType"		"tipo documento",
@@ -832,7 +832,7 @@ RETURN
 			(CASE LEFT (T2."FormatCode",1) WHEN '1' THEN 1
 			WHEN '6' THEN 6
 			ELSE 0 END )"ordenG",	
-			LEFT(T2."FormatCode",11)		"Codigo_de_cuenta",
+			LEFT(T2."FormatCode",10)		"Codigo_de_cuenta",
 			T6."AcctName"		"Nombre de cuenta", 
 			T1."TransId"			"Documento",
 			T0."TransType"		"tipo documento",
@@ -862,7 +862,7 @@ RETURN
 			(CASE LEFT (T2."FormatCode",1) WHEN '1' THEN 1
 			WHEN '7' THEN 7
 			ELSE 0 END )"ordenG",	
-			LEFT(T2."FormatCode",11)		"Codigo_de_cuenta",
+			LEFT(T2."FormatCode",10)		"Codigo_de_cuenta",
 			T6."AcctName"		"Nombre de cuenta", 
 			T1."TransId"			"Documento",
 			T0."TransType"		"tipo documento",
