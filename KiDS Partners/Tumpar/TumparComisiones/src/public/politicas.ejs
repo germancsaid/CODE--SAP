@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!---->
+    <link rel="shortcut icon" href="./img/logo.png">
+
+    <title>Comisiones Tumpar</title>
+    <!---->
+    <link rel="stylesheet" href="styles/style.css">
+
+</head>
+
+<body style="display: flex;">
+  <section class="negros" style="width: 200px; height: 100vh;">
+    <nav>
+      <img src="./img/logo.png" alt="Logo" width="70" height="70" style="margin: 5px 0px 10px 5px;">
+      <a href="/datos">
+        <button class="negro font-Major" style="display:block;width:200px;height:30px;">datos</button>
+      </a>
+      <a href="/">
+        <button class="negro font-Major" style="display:block;width:200px;height:30px;">ventas</button>
+      </a>
+      <a href="/cobranzas">
+        <button class="negro font-Major" style="display:block;width:200px;height:30px;">cobranzas</button>
+      </a>
+      <a href="/politicas">
+        <button class="blanco font-Major" style="display:block;width:200px;height:30px;">politicas</button>
+      </a>
+      <button class="negro font-Major" style="display:block;width:200px;height:30px;"><%= PlayerName %></button>
+      <button class="negros font-Major" style="display:block;width:200px;height:630px;"></button>
+      <div>
+        <form class="" action="/logout?_method=DELETE" method="post">
+            <button class="negro font-Major" style="display:block;width:200px;height:60px;">exit</button>
+        </form>
+      </div>
+    </nav>
+  </section>
+      <section style="padding: 30px 30px 0px 30px; width: calc( 100% - 280px);">
+        <article>
+          <header style="margin-bottom: 30px;">
+              <h3 style="margin-bottom: 30px;">Introduce las politicas para el calculo de comisiones</h3>
+              <form id="parametroForm" action="" style="display: flex;">
+                <div>
+                  <div style="display: flex; width: 350px; margin-bottom: 5px;">
+                    <h4 style="width: 150px;">Nombre:</h4>
+                    <input type="text" id="parametro" name="parametro" placeholder="">
+                  </div>
+                  <div style="display: flex; width: 350px; margin-bottom: 5px; margin-right:80px;">
+                    <h4 style="width: 150px;">Sucursal:</h4>
+                    <input type="text" id="SucursalListPol" name="Sucursal" list="SucursalListPoli">
+                    <datalist id="SucursalListPoli">
+                    </datalist>
+                  </div>
+                </div>
+                <div style="width: 600px;">
+                  <div style="display: flex; width: 350px; margin-bottom: 5px;">
+                    <h4 style="width: 150px;margin-right: 5px;">Rango: </h4>
+                    <h4 style="width: 150px;margin-right: 5px;">>=</h4>
+                    <input type="number" id="min1" name="min1" required>
+                    <h4 style="width: 150px;margin-left: 5px; margin-right: 5px;"><</h4>
+                    <input type="number" id="max1" name="max1" required>
+                  </div>
+                  <div style="display: flex; width: 282px; margin-bottom: 5px;">
+                    <h4 style="width: 150px;">Tasa: </h4>
+                    <input type="number" id="tasa1" name="tasa1" step="any" required>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; width: 350px; margin-bottom: 5px;">
+                    <button id="AgregarParametro" class="lechuga font-Major" style="width: 145px; height:45px;">agregar politica</button>
+                  </div>
+                </div>
+              </form>
+            </h3>
+          </header>
+          <table id="TablaCalculosCab">
+            <tr>
+              <th class="center" style="width: 1%">#</th>
+              <th class="left" style="width: 24%;">Parametro</th>
+              <th class="center" style="width: 7%;">Minimo</th>
+              <th class="center" style="width: 7%;">Maximo</th>
+              <th class="center" style="width: 7%;">Tasa</th>
+              <th class="center" style="width: 7%;">Monto</th>
+              <th class="center" style="width: 7%;">Accion</th>
+            </tr>
+          </table>
+          <main style="margin-bottom: 30px; height: 720px; overflow: auto;">
+            <table id="TablaCalculosParametros">
+              <tr>
+                <td style="text-align: center;">Lista de politicas...</td>
+              </tr> 
+            </table>
+          </main>
+        </article>
+      </section>
+      
+      <script>
+        window.userData = <%- JSON.stringify(userData) %>;
+   </script>
+   
+   <!--Functions for funtionalities in the app -->
+   <script src="scripts/functionsFront.js"></script>
+   
+   <!--Sockets and comunication client with server-->
+   <script src="/socket.io/socket.io.js" type="module"></script>
+   <script src="scripts/client.js" type="module"></script>
+
+   <script>
+    document.getElementById("parametroForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const parametro = document.getElementById("parametro").value;
+      const rango = {
+        min: parseFloat(document.getElementById("min1").value),
+        max: parseFloat(document.getElementById("max1").value),
+        tasa: parseFloat(document.getElementById("tasa1").value)
+      };
+
+      const nuevoParametro = {
+        Parametro: parametro,
+        Rango: [rango] // Agrega más objetos de rango al arreglo si es necesario
+      };
+
+      fetch("/api/new/parametro", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(nuevoParametro)
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log("Exito", data);
+          // Aquí puedes realizar cualquier acción adicional después de la inserción exitosa
+        })
+        .catch(error => {
+          console.error("Error!", error);
+          // Aquí puedes manejar el error de alguna manera
+        });
+    });
+  </script>
+   
+</body>
+</html>

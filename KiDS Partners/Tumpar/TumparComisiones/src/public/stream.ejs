@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!---->
+    <link rel="shortcut icon" href="./img/logo.png">
+
+    <title>Bitakotako</title>
+    <!---->
+    <link id="modeDarkTheme" rel="stylesheet" href="">
+    <link id="modeLightTheme" rel="stylesheet" href="styles/generalStyles.css">
+
+</head>
+
+<body>
+    <div id="stream" class="fullView">
+        <!--<section id="leftBarStream" class="lechuga"></section>-->
+        <section>
+            <header style="display: flex;">
+                <article id="calendarStream" style="display: flex; margin-top: 10px; width: 50%;">
+                    <h4 id="weekendDay" class="text-28 font-300 font-Major" style="margin-left: 20px; margin-right: 20px;">Dia</h4>
+                    <h1 id="day" class="text-28 font-800 font-Major" style="margin-right: 20px;">00</h1>
+                    <h1 class="text-28 font-300" style="margin-right: 20px;">·</h1>
+                    <h5 id="month" class="text-28 font-400 font-Major" style="margin-right: 20px;">Mes</h5>
+                </article>
+                <nav id="containerNavPages" class="content-horizontal content-right" style="width: 50%;">
+                    <a href="/backlog"><button class="nav link text-16">Backlog</button></a>
+                    <a href="/bootak"><button class="nav link text-16">Bootak</button></a>
+                    <a href="/"><button class="nav link text-16">Play</button></a>
+                    <a href="/stream"><button class="nav link text-16 font-Major">Stream</button></a>
+                </nav>
+            </header>
+        </section>
+        <section id="containerStreamDashboards">
+            <article id="containerStreamActivity" class="">
+                <header>
+                    <h2 style="margin-left: 25px;" class="">Actividades</h2>
+                    <table>
+                        <tr style="padding: 5px;">
+                          <th>op</th>
+                          <th class="font-400" style="width: 90px;">clock</th>
+                          <th class="font-400" style="width: 60px;">player</th>
+                          <th class="font-400" style="width: 95px;">proyecto</th>
+                          <th class="font-400" style="width: 245px;">event</th>
+                        </tr>
+                    </table>
+                </header>
+                <main style="height: calc(100vh - 230px); overflow-y: scroll; scroll-behavior: smooth; margin-bottom: 12px;">
+                    <table id="event_activity_list" class="text-14" > 
+                    </table>
+                </main>
+            </article>
+            <article id="containerStreamEventsInProjects" class="">
+                <header>
+                    <h2 class="">Eventos programados</h2>
+                </header>
+                <main id="">
+                    <table id="events_in_projects_list">
+                    </table>
+                </main>
+            </article>           
+            <article id="containerStreamEventsInProjectsClosed" class="">
+                <header>
+                    <h2 class="">Eventos cerrados</h2>
+                </header>
+                <main id="">
+                    <table id="events_in_projects_list_closed">
+                    </table>
+                </main>
+            </article>
+            <article id="containerStreamHoursInProjects" class="">
+                <header>
+                    <h2 class="">Horas en proyectos</h2>
+                </header>
+                <main id="">
+                    <table id="hours_in_projects_list">
+                    </table>
+                </main>
+            </article>
+        </section>
+        <section>
+            <footer>
+                <article class="content-horizontal content-right">
+                    <div>
+                        <button onclick="" class="lechuga font-Major" style="width:75px;height:20px;margin-top:2px;">resume</button>
+                    </div>
+                    <div>
+                        <form class="footerRightElement" action="/logout?_method=DELETE" method="post">
+                            <button class="nav link text-16 font-Major-exit" style="text-align:right;">exit</button>
+                        </form>
+                    </div>
+                </article>
+            </footer>
+        </section>
+    </div>
+
+    <script>
+        window.userData = <%- JSON.stringify(userData) %>;
+    </script>
+   
+    <!--Functions for funtionalities in the app -->
+    <script src="scripts/functionsFront.js"></script>
+
+    <!--Sockets and comunication client with server-->
+    <script src="/socket.io/socket.io.js" type="module"></script>
+    <script src="scripts/client.js" type="module"></script>
+</body>
+
+</html>

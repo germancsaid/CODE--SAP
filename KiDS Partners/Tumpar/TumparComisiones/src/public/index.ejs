@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!---->
+    <link rel="shortcut icon" href="./img/logo.png">
+
+    <title>Comisiones Tumpar</title>
+    <!---->
+    <link rel="stylesheet" href="styles/style.css">
+
+</head>
+
+<body style="display: flex;">
+      <section class="negros" style="width: 200px; height: 100vh;">
+        <nav>
+          <img src="./img/logo.png" alt="Logo" width="70" height="70" style="margin: 5px 0px 10px 5px;">
+          <a href="/datos">
+            <button class="negro font-Major" style="display:block;width:200px;height:30px;">datos</button>
+          </a>
+          <a href="/">
+            <button class="blanco font-Major" style="display:block;width:200px;height:30px;">ventas</button>
+          </a>
+          <a href="/cobranzas">
+            <button class="negro font-Major" style="display:block;width:200px;height:30px;">cobranzas</button>
+          </a>
+          <a href="/politicas">
+            <button class="negro font-Major" style="display:block;width:200px;height:30px;">politicas</button>
+          </a>
+          <button class="negro font-Major" style="display:block;width:200px;height:30px;"><%= PlayerName %></button>
+          <button class="negros font-Major" style="display:block;width:200px;height:630px;"></button>
+          <div>
+            <form class="" action="/logout?_method=DELETE" method="post">
+                <button class="negro font-Major" style="display:block;width:200px;height:60px;">exit</button>
+            </form>
+          </div>
+        </nav>
+      </section>
+      <section style="padding: 30px 30px 0px 30px; width: calc( 100% - 280px);">
+        <article>
+          <header style="margin-bottom: 30px;">
+              <h3 style="margin-bottom: 30px;">Introduce los parametros para el calculo de comisiones por ventas</h3>
+              <form id="FormCalcularComision" action="" style="display: flex;">
+                <div>
+                  <div style="display: flex; width: 350px; margin-bottom: 5px;">
+                    <h4 style="width: 150px;">Fecha inicial: </h4>
+                    <input type="date" id="FechaInicial" required focus>
+                  </div>
+                  <div style="display: flex;">
+                    <h4 style="width: 150px;">Fecha final: </h4>
+                    <input type="date" id="FechaFinal" required autofocus>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; width: 350px; margin-bottom: 5px; margin-right:80px;">
+                    <h4 style="width: 150px;">Sucursal:</h4>
+                    <input type="text" id="Sucursal" list="SucursalList">
+                    <datalist id="SucursalList">
+                    </datalist>
+                  </div>
+                  <div style="display: flex; width: 350px; margin-bottom: 5px;">
+                    <h4 style="width: 150px;">Vendedor:</h4>
+                    <input type="text" id="Vendedor" list="VendedorList">
+                    <datalist id="VendedorList">
+                    </datalist>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; width: 350px; margin-bottom: 5px;">
+                    <h4 style="width: 150px;">Vista:</h4>
+                      <select id="VistaList" style="width: 200px;">
+                        <option value="General">GENERAL</option>
+                        <option value="Resumen">RESUMEN</option>
+                      </select>
+                    </div>
+                  <div style="display: flex; width: 350px; margin-bottom: 5px;">
+                    <button id="CalcularComision" class="lechuga font-Major" style="width: 345px; height:25px;">calcular comision</button>
+                  </div>
+                </div>
+              </form>
+            </h3>
+          </header>
+          <table id="cabecera" style="display: none">
+            <tr>
+              <th class="center" style="width: 1%;">#</th>
+              <th class="left" style="width: 24%;">Nombre</th>
+              <th class="center" style="width: 6%">Sucursal</th>
+              <th class="center" style="width: 7%;">Credito</th>
+              <th class="center" style="width: 7%;">Contado</th>
+              <th class="center" style="width: 7%;">Anticipos</th>
+              <th class="center" style="width: 7%;">Otros As</th>
+              <th class="center" style="width: 7%;">Nota Credito</th>
+              <th class="center" style="width: 7%;">Dev Otros</th>
+              <th class="right" style="width: 7%;">TOTAL USD</th>
+              <th class="right" style="width: 7%;">Comision</th>
+            </tr>
+          </table>
+         <table id="cabeceraresumen" style="display: none">
+            <tr>
+              <th class="center" style="width: 10%">Sucursal</th>
+              <th class="center" style="width: 50%;">Nombre</th>
+              <th class="right" style="width: 20%;">TOTAL USD</th>
+              <th class="right" style="width: 20%;">Comision</th>
+            </tr>
+          </table>
+          <main style="margin-bottom: 30px; height: 720px; overflow: auto;">
+            <table id="tablaTotales">
+              <tr id="borde">
+                <th style="text-align: center;"></th>
+              </tr>
+              <tr>
+                <td style="text-align: center;">Ingrese parametros...</td>
+              </tr> 
+            </table>
+          </main>
+        </article>
+      </section>
+
+      <script>
+        // Obtener la fecha actual
+        var fechaActual = new Date();
+      
+        // Obtener el primer día del mes actual
+        var primerDiaMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
+      
+        // Obtener el último día del mes actual
+        var ultimoDiaMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
+      
+        // Formatear las fechas al formato YYYY-MM-DD
+        var primerDiaMesFormateado = primerDiaMes.toISOString().slice(0, 10);
+        var ultimoDiaMesFormateado = ultimoDiaMes.toISOString().slice(0, 10);
+      
+        // Establecer los valores en los inputs "FechaInicial" y "FechaFinal"
+        document.getElementById("FechaInicial").value = primerDiaMesFormateado;
+        document.getElementById("FechaFinal").value = ultimoDiaMesFormateado;
+      </script>
+      
+   <script>
+        window.userData = <%- JSON.stringify(userData) %>;
+   </script>
+   
+   <!--Functions for funtionalities in the app -->
+   <script src="scripts/functionsFront.js"></script>
+   
+   <!--Sockets and comunication client with server-->
+   <script src="/socket.io/socket.io.js" type="module"></script>
+   <script src="scripts/client.js" type="module"></script>
+   
+</body>
+</html>

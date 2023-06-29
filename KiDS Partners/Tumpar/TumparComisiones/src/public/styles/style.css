@@ -1,0 +1,637 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Montserrat:wght@900&family=Major+Mono+Display&display=swap");
+
+/*===========  GENERAL PARA TODO EL DOM  ==========*/
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Fira Code", monospace;
+    font-weight: 300;
+    text-decoration: none;
+    /*subrayado de los links*/
+    border: none;
+    border-collapse: collapse;
+}
+
+*::-webkit-scrollbar,
+.hiden { display: none; }
+
+.font-Major{
+    font-family: 'Major Mono Display', monospace;
+    font-weight: 600;
+}
+
+body{
+    background: white;
+    color: black;
+}
+/*--------- Width ---------*/
+.w-100 { width: 100%; }
+.w-50 { width: 50%; }
+
+/*--------- Height ---------*/
+.h-10 { height: 10px; }
+.h-17 { height: 17px; }
+
+/*--------- Margin ---------*/
+.mt-15p{
+    margin-top: 15px;
+}
+/*--------- Padding ---------*/
+.p-r-35p {
+    padding-right:35px ;
+}
+.fullView{
+    width: 100%;
+    height: 100vh;
+    padding: 10px 0px 0px 0px;
+}
+/*--------- Elements ---------*/
+
+li{
+    list-style-type: none;
+}
+
+input[type="text" i],input[type="number" i] { padding: 1px 2px; background-color: #ebebeb; }
+
+textarea {padding: 2px;}
+
+button.nav{
+    background: none;
+    width: 120px;
+    height: 25px;
+}
+
+button.nav:hover{
+    font-family: 'Major Mono Display', monospace;
+    font-weight: 600;
+}
+button.nav.font-Major:hover,button.nav.font-Major-exit:hover {
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/*==============  Paleta de Colores =================*/
+
+
+/*--------------  fondos y color de letras internas    */
+
+.blanco {
+    background: white;
+    color: black;
+}
+
+.rosa {
+    background: red;
+    color: white;
+}
+
+.rojo {
+    background: rgb(247, 186, 186);
+    color: white;
+}
+
+.orange {
+    background: red;
+    color: white;
+}
+
+.yello {
+    background: rgb(252, 255, 172);
+    color: white;
+}
+
+.lechuga {
+    background: rgb(223, 247, 186);
+    color: black;
+}
+
+.verde {
+    background: red;
+    color: white;
+}
+.verde-t {
+    color: rgb(10, 224, 121);
+}
+
+.celeste {
+    background: rgb(181, 220, 237);
+    color: white;
+}
+
+.azul {
+    background: red;
+    color: white;
+}
+
+.lila {
+    background: rgb(214, 186, 247);
+    color: white;
+}
+.lila-t {
+    color: rgb(214, 186, 247);
+}
+
+.vino {
+    background: red;
+    color: white;
+}
+
+.cafe {
+    background: red;
+    color: white;
+}
+
+.oro {
+    background: red;
+    color: white;
+}
+
+.negro {
+    background: black;
+    color: white;
+}
+.negros {
+  background: black;
+}
+.negro-t {
+    color: black;
+}
+
+.plomo {
+    background: rgb(241, 241, 241);
+    color: black;
+}
+
+
+/*--------------  colores y hover ----------*/
+
+.blanco:hover {
+    background: white;
+    color: black;
+}
+
+.rosa:hover {
+    background: red;
+    color: white;
+}
+
+.rojo:hover {
+    background: rgb(228, 124, 124);
+    color: white;
+}
+
+.orange:hover {
+    background: red;
+    color: white;
+}
+
+.yello:hover {
+    background: red;
+    color: white;
+}
+
+.lechuga:hover {
+    background: rgb(186, 228, 124);
+    color: white;
+}
+
+.verde:hover {
+    background: red;
+    color: white;
+}
+
+.celeste:hover {
+    background: rgb(37, 150, 190);
+    color: white;
+}
+
+.azul:hover {
+    background: red;
+    color: white;
+}
+
+.lila:hover {
+    background: rgb(150, 124, 228);
+    color: white;
+}
+
+.vino:hover {
+    background: red;
+    color: white;
+}
+
+.cafe:hover {
+    background: red;
+    color: white;
+}
+
+.oro:hover {
+    background: red;
+    color: white;
+}
+
+.negro:hover {
+    background: white;
+    color: black;
+}
+
+.plomo:hover {
+    background: rgb(217, 217, 217);
+    color: black;
+}
+
+
+/*--------------  colores y doble hover en plomo */
+.plomo:hover .rojo{
+    background: rgb(247, 186, 186);
+}.plomo:hover .rojo:hover{
+    background: rgb(228, 124, 124);
+}
+
+.plomo:hover .lechuga {
+    background: rgb(223, 247, 186);
+}.plomo:hover .lechuga:hover{
+    background: rgb(186, 228, 124);
+}
+
+.plomo:hover .lila {
+    background: rgb(214, 186, 247);
+}.plomo:hover .lila:hover{
+    background: rgb(150, 124, 228);
+}
+/*-------------- others especials----------------- */
+.invisible { background: white; color: white;}
+
+/*===========  Textos letras o parrafos  ==========*/
+
+.text-8 {
+    font-size: 8px;
+}
+.text-14 {
+    font-size: 14px;
+}
+
+.text-16 {
+    font-size: 16px;
+}
+
+.text-18 {
+    font-size: 18px;
+}
+
+.text-28{
+    font-size: 28px;
+}
+
+.font-400 {
+    font-weight: 400;
+}
+
+.font-500 {
+    font-weight: 500;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+
+/*==============  Formas y geometrias ==============*/
+
+.oval {
+    width: 150px;
+    height: 30px;
+    border-radius: 30px;
+}
+
+.square-S {
+    width: 20px;
+    height: 20px;
+}
+
+.square-M {
+    width: 40px;
+    height: 40px;
+}
+
+.triangle-tricolor {
+    width: 0; 
+    height: 0; 
+    border-left: 18px solid #9fb8ce;
+    border-top: 10px solid #ffffff;
+    border-bottom: 10px solid #ffffff;
+}
+.triangle-tricolor:hover {
+    width: 0; 
+    height: 0; 
+    border-left: 18px solid #d5d5d5;
+    border-top: 10px solid #ffffff;
+    border-bottom: 10px solid #ffffff;
+}
+
+.midline {
+    width: 1px;
+    background: rgba(186, 186, 186, 0.684);
+    height: 100%;
+    margin: 5px;
+}
+/*------------------ Especiales -----------------------------*/
+#btn-delete-eventPending{
+    height: auto;
+    width: 35px;
+    min-width: 35px;
+}
+#btn-play-eventPending{
+    width: 25%;
+    height: auto;
+}
+
+
+/*==============  Buttons  =======================*/
+
+button {
+    cursor: pointer;
+}
+
+
+/*==============  Inputs   =======================*/
+
+input,
+textarea {
+    outline: none;
+    resize: none;
+}
+
+/*==============  Inputs colors =======================*/
+
+.plomo:hover, .plomo:hover input, input:focus, .plomo:hover textarea, textarea:focus {
+    background: rgb(217, 217, 217);
+}
+
+/*==============  Alineaciones  ==================*/
+
+.content-left {text-align: left;}
+
+.content-horizontal { display: flex; }
+
+.content-right { text-align: right; justify-content: right;}
+
+.center-absolut {
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+
+/*===========  PAGINA BACKLOG  =========*/
+
+
+/*----------- Timeline cronograma ------*/
+
+#timelineProyecto {
+    border-collapse: collapse;
+    margin: 0px 35px 0px 15px;
+}
+
+
+/*===========  PAGINA BOOTASK  =========*/
+
+
+/*===========  PAGINA GAME  ==========*/
+
+/*----------  General Elemants properties */
+.containerFilters {margin: 10px 0px 25px 20px;}
+
+.scrollHiden-bodyGame-left {
+    height: calc(100vh - 230px);
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    margin-bottom: 12px;
+    
+}.scrollHiden-bodyGame {
+    height: calc(100vh - 210px);
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    margin-bottom: 12px;
+    
+}.scrollHiden-bodyGameCenter {
+    height: calc(100vh - 220px);
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+.scrollOcultoHorizontal{
+    overflow: auto;
+    display: inline-block;
+}.footerRightElement{
+    padding: 0px 10px 5px 10px;
+}
+.link {
+    color: rgb(84, 10, 168);
+}
+#bodyGame{
+    /*maquetacion para 3 columnas*/
+    display: grid;
+    grid-template-columns: calc(50% - 190px) 380px calc(50% - 190px);
+
+}
+
+/*----------- Section left ------*/
+
+#containerNewEventForm-bodyGame{
+    margin: 35px 0px 10px 0px;
+    padding: 5px 0px 0px 25px;
+}
+.separador{
+    margin: 0px 0px 0px 0px;
+}
+#containerEventsListPending input {
+    margin: 15px 0px 0px 0px;
+    width: 100%;
+}
+#containerTagsEventPending_bodyGame{
+    display: grid;
+    grid-template-columns: 80% 20%;
+    margin: 0px 2px;
+
+}
+/*----------- Section center ------*/
+
+#containerButtonsClockGame button{
+    margin: 0px 5px 15px 5px;
+}
+#containerButtonsClockGame h3{
+    margin: 0px 0px 15px 175px;
+}
+#calendar{
+    width: 175px;
+    padding: 5px 5px 0px 10px;
+}
+#containerWorkedHours{
+    width: 175px;
+    padding: 25px 5px 18px 10px;
+}
+#boxi{
+    border: solid 1px;
+    border-color: rgb(207, 207, 207);
+    width: 340px;
+    height: auto;
+    margin: 0px 5px 5px 2px;
+    padding: 2px;
+}
+
+
+/*----------- Section right ------*/
+
+#containerNavPages{
+    padding: 14px 0px 0px 0px;
+}
+.content-right input, .content-right textarea{
+    text-align: right;
+    justify-content: right;
+}
+#containerTitleSection{
+    margin: 55px 0px 33px 0px;
+    padding: 5px 25px 0px 0px;
+}
+
+
+
+/*===========  PAGINA STREAM  ==========*/
+
+#stream {
+    /*maquetacion para 3 lineas*/
+    display: grid;
+    grid-template-rows: 50px calc(100% - 93px) 40px;
+}
+#containerStreamDashboards{
+    padding: 0px 0px 0px 0px;
+    width: 100%;
+    display: flex;
+}
+#containerStreamDashboards article {
+    margin: 20px 20px 0px 0px;
+}
+#containerStreamDashboards h2{
+    margin-bottom: 30px;
+}
+#containerStreamDashboards th, #containerStreamDashboards td{
+    padding: 5px 10px 5px 5px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}#containerStreamDashboards tr:hover{
+    background-color: rgb(241, 241, 241);
+}
+#containerStreamActivity{
+    width: 560px;
+    height: auto;
+    padding: 10px 10px 10px 0px;
+    border: 1px solid;
+    border-radius: 2px;
+    border-color: rgba(242, 242, 242, 0.119);
+    -webkit-box-shadow: 6px 7px 12px -6px rgba(0,0,0,0.22);
+    -moz-box-shadow: 6px 7px 12px -6px rgba(0,0,0,0.22);
+    box-shadow: 5px 5px 12px -6px rgba(0,0,0,0.22);
+    
+}
+/*===========  PAGINA RESUME  ==========*/
+#bodyResume{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#resume{
+    padding: 30px 50px;
+    width: 1098px; /* ancho de la sección */
+    height: 1489px; /* altura de la sección */
+    min-width:1098px;
+    min-height:1489px;
+    margin: auto; /* centrar horizontalmente */
+    border: solid 1px;
+    border-color: #d5d5d5;
+}
+
+/*=======================================*/
+table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 900px;
+  }
+
+  
+  #TablaDetalle th,#TablaDetalle td,#TablaDetalle .left {
+    text-align: left;
+    padding: 2px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  #TablaDetalle th,#TablaDetalle td,#TablaDetalle .center{
+    text-align: center;
+    padding: 2px;
+    border-bottom: 1px solid #ddd;
+  }
+  #TablaDetalle th,#TablaDetalle td,#TablaDetalle .right{
+    text-align: right;
+    padding: 2px;
+    border-bottom: 1px solid #ddd;
+  }
+#tablaTotales th,#tablaTotales td,#tablaTotales .left {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  #tablaTotales th,#tablaTotales td,#tablaTotales .center{
+    text-align: center;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  #tablaTotales th,#tablaTotales td,#tablaTotales .right{
+    text-align: right;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  .left{
+    text-align: left;
+  }
+  .center{
+    text-align: center;
+  }
+  .right{
+    text-align: right;
+  }
+
+  th {
+    background-color: #52525d;
+    color: white;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+input{
+    background-color: rb(243, 243, 246);
+}
+.plomo:hover, .plomo:hover input, input:focus, .plomo:hover textarea, textarea:focus {
+    background: rgb(217, 217, 217);
+}
+/*=======================================*/
+
+
+/*=======================================*/
+
+
+/*=======================================*/
+
+
+/*=======================================*/
+
+
+/*=======================================*/
+
+
+/*=======================================*/
+
+
+/*=======================================*/
