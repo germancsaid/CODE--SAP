@@ -1,4 +1,5 @@
-CREATE PROCEDURE AAA_COMISIONES_DET (in fdesde date, in fhasta date, in vendedor varchar(100))
+CREATE PROCEDURE KDS_COMISIONES_DET (in fdesde date, in fhasta date, in vendedor varchar(100))
+-- CALL KDS_COMISIONES_DET('2023-05-01','2023-05-31','CASTRO CUELLAR JOANA') 
 AS
 BEGIN
 

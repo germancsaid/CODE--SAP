@@ -1,4 +1,5 @@
-CREATE PROCEDURE AAA_COMISIONES_TOT (in fdesde date, in fhasta date)
+CREATE PROCEDURE KDS_COMISIONES_TOT (in fdesde date, in fhasta date) 
+-- CALL KDS_COMISIONES_TOT('2023-05-01','2023-05-31') 
 AS
 BEGIN
 

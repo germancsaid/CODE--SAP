@@ -1,10 +1,10 @@
 CREATE PROCEDURE ACB_EERR_EDV (in fdesde date, in fhasta date, in moneda varchar(3))
---ALTER
 AS
 BEGIN
 -- APZ: ESTADO DE RESULTADOS
 -- GTP: AJUSTES 2023
 -- call ACB_EERR
+-- ZENON
 	
 	declare tc decimal(10,2);
 
@@ -52,7 +52,7 @@ BEGIN
        (SELECT "AcctName" 
             FROM OACT 
             WHERE "AcctCode" = LEFT(T0."AcctCode",6)) Descripcion_N3,
-		LEFT(T0."AcctCode",9) Nivel4,
+		LEFT(T0."AcctCode",8) Nivel4,
        (SELECT "AcctName" 
             FROM OACT 
             WHERE "AcctCode" = LEFT(T0."AcctCode",8)) Descripcion_N4,
@@ -81,6 +81,7 @@ BEGIN
 	WHERE T0."Postable"='Y' 
     AND LEFT(T0."AcctCode",1) IN ('4','5')--'5'
     AND IFNULL((T1."Credit"-T1."Debit"),0) <> 0
-	GROUP BY T0."AcctCode",T0."FatherNum",T0."AcctName",T1."ProfitCode",T3."PrcCode";
+  	GROUP BY T0."AcctCode",T0."FatherNum",T0."AcctName",T1."ProfitCode",T3."PrcCode"
+	ORDER BY T0."AcctCode" DESC;
 
 END;
