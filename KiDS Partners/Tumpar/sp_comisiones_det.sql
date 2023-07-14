@@ -31,8 +31,8 @@ FROM
       T1."DocDate" AS "Fecha de Pago", T1."DocNum" AS "Numero de Pago",
       T3."DocDate" AS "Fecha de Documento",
       T3."DocNum" AS "Numero de Documento",
-      T3."CardCode" AS "Codigo Cliente",
-      T3."CardName" AS "Nombre Cliente",
+      T1."CardCode" AS "Codigo Cliente",
+      T1."CardName" AS "Nombre Cliente",
 	    CASE WHEN T1."Comments" IS NULL THEN T1."JrnlMemo" ELSE T1."Comments" END AS "Comentario",
       CASE WHEN T2."InvType" = '13' THEN 'Factura' ELSE '' END AS "Tipo de Documento",
       'Contado' AS "Tipo",
@@ -65,8 +65,8 @@ FROM
       T1."DocDate" AS "Fecha de Pago", T1."DocNum" AS "Numero de Pago",
       T3."DocDate" AS "Fecha de Documento",
       T3."DocNum" AS "Numero de Documento",
-      T3."CardCode" AS "Codigo Cliente",
-      T3."CardName" AS "Nombre Cliente",
+      T1."CardCode" AS "Codigo Cliente",
+      T1."CardName" AS "Nombre Cliente",
 	    CASE WHEN T1."Comments" IS NULL THEN T1."JrnlMemo" ELSE T1."Comments" END AS "Comentario",
       CASE WHEN T2."InvType" = '13' THEN 'Factura' ELSE '' END AS "Tipo de Documento",
       'Credito' AS "Tipo",
@@ -97,10 +97,10 @@ FROM
       T0."RefDate" AS "Fecha Contable",
       T0."Number" AS "Numero de Asiento",
       T1."DocDate" AS "Fecha de Pago", T1."DocNum" AS "Numero de Pago",
-      '1900-01-01' AS "Fecha de Documento",
-      0 AS "Numero de Documento",
-      '' AS "Codigo Cliente",
-      '' AS "Nombre Cliente",
+      T1."DocDate" AS "Fecha de Documento",
+      T1."DocNum" AS "Numero de Documento",
+      T1."CardCode" AS "Codigo Cliente",
+      T1."CardName" AS "Nombre Cliente",
 	    CASE WHEN T1."Comments" IS NULL THEN T1."JrnlMemo" ELSE T1."Comments" END AS "Comentario",
       'Pago Anticipo' AS "Tipo de Documento",
       'Anticipo' AS "Tipo",
@@ -126,27 +126,41 @@ FROM
       T0."RefDate" AS "Fecha Contable",
       T0."Number" AS "Numero de Asiento",
       T1."DocDate" AS "Fecha de Pago", T1."DocNum" AS "Numero de Pago",
-      '1900-01-01' AS "Fecha de Documento",
-      0 AS "Numero de Documento",
-      T3."CardCode" AS "Codigo Cliente",
-      T3."CardName" AS "Nombre Cliente",
+      T3."RefDate" AS "Fecha de Documento",
+      T3."Number" AS "Numero de Documento",
+      T1."CardCode" AS "Codigo Cliente",
+      T1."CardName" AS "Nombre Cliente",
 	    CASE WHEN T1."Comments" IS NULL THEN T1."JrnlMemo" ELSE T1."Comments" END AS "Comentario",
       CASE WHEN T2."InvType" = '30' THEN 'Asiento' ELSE '' END AS "Tipo de Documento",
-      'Reconciliacion' AS "Tipo",
+      'Credito AS' AS "Tipo",
       0 AS "Bono Extra Stock",
-      CASE WHEN T4."SlpName" IS NOT NULL THEN T4."SlpName" ELSE T1."U_VENDEDOR" END AS "Vendedor",
+      T1."U_VENDEDOR" AS "Vendedor",
       CASE WHEN T2."SumApplied" + T0."LocTotal" = 0 THEN T0."LocTotal" ELSE T2."SumApplied" END AS "Monto"
       FROM OJDT T0 
       LEFT JOIN ORCT T1 ON T0."BaseRef" = T1."DocNum"
       LEFT JOIN RCT2 T2 ON T1."DocEntry" = T2."DocNum"
-      LEFT JOIN OINV T3 ON T2."DocEntry" = T3."DocEntry"
-      LEFT JOIN OSLP T4 ON T3."SlpCode" = T4."SlpCode" 
+      LEFT JOIN OJDT T3 ON T2."DocEntry" = T3."TransId"
       WHERE 
       T0."TransType"  = '24' AND
       T2."InvType"  = '30' AND
       T0."RefDate" >= fdesde AND 
-      T0."RefDate" <= fhasta AND
-      (T3."DocDate" >= '2019-01-01' OR T3."DocDate" IS NULL OR T3."DocDate" = '')
+      T0."RefDate" <= fhasta
+
+      /* query de traspaos de deuda
+    UNION ALL 
+
+    SELECT T0."RefDate", T0."Number",T2."CardCode", T1."Credit"
+      FROM OJDT T0
+      INNER JOIN JDT1 T1 ON T0."TransId" = T1."TransId"
+      INNER JOIN OCRD T2 ON T2."CardCode" = T1."ShortName"
+      LEFT JOIN RCT2 T3 ON T0."TransId" = T3."DocEntry"
+      INNER JOIN OCRD T4 ON T1."ContraAct" = T4."CardCode"
+      WHERE T1."Debit" = 0
+      AND T0."RefDate" BETWEEN '2023-05-01' AND '2023-05-31'
+      AND T0."TransType" = '30'
+      AND T3."DocEntry" IS NULL
+      ORDER BY T1."Credit" DESC
+      */
 
       UNION ALL
       
@@ -157,8 +171,8 @@ FROM
       T1."DocDate" AS "Fecha de Pago", T1."DocNum" AS "Numero de Pago",
       T3."DocDate" AS "Fecha de Documento",
       T3."DocNum" AS "Numero de Documento",
-      T3."CardCode" AS "Codigo Cliente",
-      T3."CardName" AS "Nombre Cliente",
+      T1."CardCode" AS "Codigo Cliente",
+      T1."CardName" AS "Nombre Cliente",
 	    CASE WHEN T1."Comments" IS NULL THEN T1."JrnlMemo" ELSE T1."Comments" END AS "Comentario",
       CASE WHEN T2."InvType" = '14' THEN 'Nota de Credito' ELSE '' END AS "Tipo de Documento",
       'Devolucion' AS "Tipo",
@@ -184,30 +198,29 @@ FROM
     SELECT
       T0."RefDate" AS "Fecha Contable",
       T0."Number" AS "Numero de Asiento",
-      T1."DocDate" AS "Fecha de Pago", T1."DocNum" AS "Numero de Pago", 
-      '1900-01-01' AS "Fecha de Documento",
-      0 AS "Numero de Documento",
-      T3."CardCode" AS "Codigo Cliente",
-      T3."CardName" AS "Nombre Cliente",
+      T1."DocDate" AS "Fecha de Pago", T1."DocNum" AS "Numero de Pago",
+      T3."RefDate" AS "Fecha de Documento",
+      T3."Number" AS "Numero de Documento",
+      T1."CardCode" AS "Codigo Cliente",
+      T1."CardName" AS "Nombre Cliente",
 	    CASE WHEN T1."Comments" IS NULL THEN T1."JrnlMemo" ELSE T1."Comments" END AS "Comentario",
       CASE WHEN T2."InvType" = '24' THEN 'Pago Recibido' ELSE '' END AS "Tipo de Documento",
       'Devolucion' AS "Tipo",
       0 AS "Bono Extra Stock",
-      CASE WHEN T4."SlpName" IS NOT NULL THEN T4."SlpName" ELSE T1."U_VENDEDOR" END AS "Vendedor",
+      T1."U_VENDEDOR" AS "Vendedor",
       CASE WHEN T2."SumApplied" + T0."LocTotal" = 0 THEN T0."LocTotal" ELSE -1 * T2."SumApplied" END AS "Monto"
       FROM OJDT T0 
       LEFT JOIN OVPM T1 ON T0."BaseRef" = T1."DocNum"
       LEFT JOIN VPM2 T2 ON T1."DocEntry" = T2."DocNum"
-      LEFT JOIN ORIN T3 ON T2."DocEntry" = T3."DocEntry"
-      LEFT JOIN OSLP T4 ON T3."SlpCode" = T4."SlpCode" 
+      LEFT JOIN OJDT T3 ON T2."DocEntry" = T3."TransId"
       WHERE 
       T0."TransType"  = '46' AND
       T2."InvType"  = '24' AND
       T0."RefDate" >= fdesde AND 
-      T0."RefDate" <= fhasta AND
-      (T3."DocDate" >= '2019-01-01' OR T3."DocDate" IS NULL OR T3."DocDate" = '')
+      T0."RefDate" <= fhasta
+
 )
-WHERE vendedor IS NULL OR vendedor = '' OR "Vendedor" = vendedor
+WHERE vendedor IS NULL OR vendedor = '' OR "Vendedor" LIKE '%' || vendedor || '%'
 ORDER BY "Fecha de Pago", "Vendedor"
 
 ;
