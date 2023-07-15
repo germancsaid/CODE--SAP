@@ -340,6 +340,7 @@ export default (io) => {
                   (item) =>
                     item.Vendedor === vendedor
                 );
+
                 io.emit("server:s_enviando_detalle", tablaDetalleVendedor);
               });
             });
