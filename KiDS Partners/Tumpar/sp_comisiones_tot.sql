@@ -107,7 +107,10 @@ FROM
     -- PAGOS RECIBIDOS OTROS AGRUPADOS
     SELECT
       T1."U_VENDEDOR" AS "Vendedor",
-      SUM(CASE WHEN T2."SumApplied" + T0."LocTotal" = 0 THEN T0."LocTotal" ELSE T2."SumApplied" END) AS "Monto"
+      SUM(CASE 
+      WHEN (T2."SumApplied" + T0."LocTotal" = 0) OR (T2."SumApplied" > ABS(T0."LocTotal")) THEN T0."LocTotal" * (1)
+      WHEN (T2."SumApplied" + T0."LocTotal" <> 0) AND (T0."LocTotal" - T2."SumApplied" < 0) AND (T2."SumApplied" < ABS(T0."LocTotal")) THEN T2."SumApplied" * (-1)
+      ELSE T2."SumApplied" * (1) END) AS "Monto"--+linea modificaciones v3 27-07
       FROM OJDT T0
       LEFT JOIN ORCT T1 ON T0."BaseRef" = T1."DocNum"
       LEFT JOIN RCT2 T2 ON T1."DocEntry" = T2."DocNum"
@@ -148,7 +151,10 @@ FROM
     -- PAGOS EFECTUADOS DEV DE PAGO RECIBIDO AGRUPADO
     SELECT
       T1."U_VENDEDOR" AS "Vendedor",
-      SUM(CASE WHEN T2."SumApplied" + T0."LocTotal" = 0 THEN T0."LocTotal" ELSE -1 * T2."SumApplied" END) AS "Monto"
+      SUM(CASE 
+      WHEN (T2."SumApplied" + T0."LocTotal" = 0) OR (T2."SumApplied" > ABS(T0."LocTotal")) THEN T0."LocTotal" * (-1)
+      WHEN (T2."SumApplied" + T0."LocTotal" <> 0) AND (T0."LocTotal" - T2."SumApplied" < 0) AND (T2."SumApplied" < ABS(T0."LocTotal")) THEN T2."SumApplied" * (1)
+      ELSE T2."SumApplied" * (-1) END) AS "Monto"--+linea modificaciones v3 27-07
       FROM OJDT T0 
       LEFT JOIN OVPM T1 ON T0."BaseRef" = T1."DocNum"
       LEFT JOIN VPM2 T2 ON T1."DocEntry" = T2."DocNum"
